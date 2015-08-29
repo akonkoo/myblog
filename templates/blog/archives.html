@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+Archives
+{% endblock %}
+
+{% block content %}
+<div>
+  
+    {% for object in object_list %}
+       <li><a href="{% url 'detail' object.pk %}">{{ object.created|date:"jF Y"}}
+       	--------------------------------------------{{ object.title }}</a></li>
+     {% endfor %}
+   
+</div>
+{% endblock %}
+
+{% block side %}
+{% include 'blog/_side.html' %}
+{% endblock %}
+

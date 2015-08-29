@@ -1,0 +1,16 @@
+{% load django_markdown %}
+
+
+<div class="blog-post">
+    <h2 class="blog-post-title">
+      <a href="{% url 'detail' pk=entry.pk %}">{{ entry.title }}</a>
+    </h2>
+     <p class="blog-post-meta">
+      {{ entry.created }} |
+       {% for tag in entry.tags.all %}
+            <a href="{{ tag.get_absolute_url }}">{{ tag.slug }}</a>
+       {% endfor %}
+    </p> 
+     <p>{{ entry.body|markdown:'codehilite' }}</p>
+</div><!-- /.blog-post -->
+
