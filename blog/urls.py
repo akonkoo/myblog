@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^tag/(?P<pk>\d+)$', 'blog.views.tagdetail', name='tagdetail'),
     url(r'^about/$', 'blog.views.about', name='about'),
     url(r'^feed/$', feed.RssFeed(), name = 'feed'),
+    url(r'^search/$', 'blog.views.search', name='search'),
 ]

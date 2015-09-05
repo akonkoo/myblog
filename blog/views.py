@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 from blog.models import Entry, Tag
 
@@ -41,6 +41,31 @@ def tagdetail(request, pk):
 def about(request):
 	tag_list = Tag.objects.all()
 	return render(request, 'blog/about.html', {'tag_list': tag_list})
+
+def search(request):
+	tag_list = Tag.objects.all()
+	if 'q' in request.GET :
+		q = request.GET['q']
+		if not q:
+			return render(request, 'blog/index.html', {
+				'entry_list':Entry.objects.published(),
+				'tag_list': tag_list
+				})
+		else: 
+                                   entry_list = Entry.objects.filter(title__icontains = q) 
+                                   if len(entry_list) == 0:
+                                   	return render(request, 'blog/archives.html', {
+                                   		
+                                   		'tag_list': tag_list,
+                                   		'error': True
+                                   		})
+                                   else:
+                                   	return render(request, 'blog/archives.html', {
+                                   		'entry_list': entry_list,
+                                   		'tag_list': tag_list,
+                                   		'error': False
+                                   		})
+	return redirect('/')	
 
 
 

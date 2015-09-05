@@ -6,10 +6,12 @@ Archives
 
 {% block content %}
 <div>
-  
-    {% for object in object_list %}
-       <li><a href="{% url 'detail' object.pk %}">{{ object.created|date:"jF Y"}}
-       	--------------------------------------------{{ object.title }}</a></li>
+     {% if error %}
+       <p>没有找到相关条目.</p>
+      {% endif %}
+    {% for entry in entry_list %}
+       <li><a href="{% url 'detail' entry.pk %}">{{ entry.created|date:"jF Y"}}
+       	--------------------------------------------{{ entry.title }}</a></li>
      {% endfor %}
    
 </div>
